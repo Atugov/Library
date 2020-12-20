@@ -7,10 +7,12 @@ import repository.BookRepository;
 import repository.BookRepositoryListImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookService {
-    private static BookService bookService;
     private static BookRepository bookRepository;
+    private static BookService bookService;
+
 
     private BookService() {
         bookRepository = BookRepositoryListImpl.getInstance();
@@ -31,7 +33,7 @@ public class BookService {
             }
         }
         if (booksByAuthor.isEmpty()) {
-            throw new NoSuchBookException("THere are no books with author " + author);
+            throw new NoSuchBookException("There are no books with author " + author);
         }
         return booksByAuthor;
 
@@ -77,10 +79,8 @@ public class BookService {
         return booksByCategory;
     }
 
-    public void showAllBooks() {
-        for (Book b : bookRepository.getAllBooks()) {
-            System.out.println(b);
-        }
+    public List<Book> showAllBooks() {
+        return bookRepository.getAllBooks();
 
     }
     public Book addBook(Book book){

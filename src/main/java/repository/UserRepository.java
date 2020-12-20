@@ -7,5 +7,8 @@ import java.util.List;
 
 public interface UserRepository {
     List<User> getAllUsers();
+
     List<LibraryUser> getAllLibraryUsers();
+
+    User addUser(User user);
 }

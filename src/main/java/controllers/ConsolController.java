@@ -43,9 +43,10 @@ public class ConsolController {
             System.out.println("2: Log out");
             System.out.println("3: Show all books");
             System.out.println("4: Show all authors");
+            System.out.println("5: Register new user");
             System.out.println("6: Register new author");
             System.out.println("7: Register new book");
-            System.out.println("8: Show all books");
+            System.out.println("8: Show all users");
             System.out.println("10: Turn off application");
             int optionNumber = scanner.nextInt();
             if (optionNumber == 1) {
@@ -53,15 +54,18 @@ public class ConsolController {
             } else if (optionNumber == 2) {
                 logOut();
             } else if (optionNumber == 3) {
-                showAllBooks();
+                System.out.println(bookService.showAllBooks());
             }else if(optionNumber == 4){
                 System.out.println(authorService.getAllAuthors());
-            } else if (optionNumber == 6) {
+            }else if(optionNumber == 5){
+                registerNewUser();
+            }
+            else if (optionNumber == 6) {
                 registerNewAuthor();
             }else if(optionNumber == 7){
                 registerNewBook();
             }else if(optionNumber == 8){
-                showAllBooks();
+                System.out.println(userService.getAllUsers());
             }
             else if (optionNumber == 10) {
                 turnOffApplication();
@@ -82,10 +86,6 @@ public class ConsolController {
         logedInLibUser = null;
     }
 
-    private void showAllBooks() {
-        bookService.showAllBooks();
-    }
-
     private void turnOffApplication() {
         System.exit(1);
     }
@@ -96,6 +96,9 @@ public class ConsolController {
     }
     private void registerNewBook(){
         bookService.addBook(ConsoleWorkerUtils.registerNewBook());
+    }
+    private void registerNewUser(){
+        userService.addNewUser(ConsoleWorkerUtils.registerNewUser());
     }
 
 

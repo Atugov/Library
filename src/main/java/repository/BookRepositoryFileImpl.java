@@ -14,7 +14,8 @@ import java.util.Scanner;
 
 public class BookRepositoryFileImpl implements BookRepository {
     private static BookRepositoryFileImpl bookRepositoryFile;
-    public final static File FILE_BOOKS = new File("booksRepositoryFilet.txt");
+    private final static File FILE_BOOKS = new File("booksRepositoryFile.txt");
+
     private BookRepositoryFileImpl() {
     }
 
@@ -36,8 +37,8 @@ public class BookRepositoryFileImpl implements BookRepository {
         try {
             Scanner scanner = new Scanner(FILE_BOOKS);
             while (scanner.hasNextLine()) {
-                String nl = scanner.nextLine();
-                String[] fields = nl.split("[\t]");
+                String nl1 = scanner.nextLine();
+                String[] fields = nl1.split("[\t]");
                 String[] date = fields[2].split("[-]");
                 int day = Integer.parseInt(date[2]);
                 int month = Integer.parseInt(date[1]);
@@ -45,7 +46,7 @@ public class BookRepositoryFileImpl implements BookRepository {
                 int numOfPages = Integer.parseInt(fields[2]);
                 Author author = new Author(fields[0], fields[1], LocalDate.of(year, month, day));
 
-                Book book = new Book(author, fields[1], numOfPages ,fields[3]);
+                Book book = new Book(author, fields[1], numOfPages, fields[3]);
                 books.add(book);
             }
         } catch (FileNotFoundException e) {
@@ -58,10 +59,9 @@ public class BookRepositoryFileImpl implements BookRepository {
     public Book addBook(Book book) {
         String bookInfo = book.getAuthor() + "\t" + book.getTitle() + "\t" + book.getNumberOfPages() + "\t" + book.getCategory() + "\n";
         String fileName = FILE_BOOKS.getPath();
-        try{
-            FileWorkerUtils.writeToFile(fileName,bookInfo);
-        }
-        catch (IOException e){
+        try {
+            FileWorkerUtils.writeToFile(fileName, bookInfo);
+        } catch (IOException e) {
             throw new IllegalStateException();
         }
         return book;
