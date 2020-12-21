@@ -57,4 +57,9 @@ public class UserRepositiryListImpl implements UserRepository {
     public List<LibraryUser> getAllLibraryUsers() {
         return libraryUsers;
     }
+
+    @Override
+    public User addUser(User user) {
+        return null;
+    }
 }

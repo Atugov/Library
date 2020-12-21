@@ -5,12 +5,14 @@ import controllers.ConsolController;
 import model.Author;
 import model.Book;
 import model.user.LibraryUser;
+import model.user.User;
 import service.UserService;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -81,7 +83,7 @@ public class ConsoleWorkerUtils {
     }
 
     private static boolean containsSymbolsOnly(String str) {
-        Pattern pattern = Pattern.compile("\\w");
+        Pattern pattern = Pattern.compile("\\w+");
         Matcher match = pattern.matcher(str);
         return match.matches();
     }
@@ -176,12 +178,12 @@ public class ConsoleWorkerUtils {
         }
         return day;
     }
-    ///////***        Добавление кники     ******//////////
+    ///////***        Добавление книги     ******//////////
 
     public static Book registerNewBook() {
         Author authorForBook = registerNewAuthor();
         scanner = new Scanner(System.in);
-        System.out.println("Введите название кники:");
+        System.out.println("Введите название книги:");
         String title = scanner.next();
         while (!containsSymbolsOnly(title)) {
             System.out.println("Wrong name");
@@ -207,7 +209,7 @@ public class ConsoleWorkerUtils {
                 System.out.println("Или введите -1 чтобы выйти в меню");
             }
         }
-        System.out.println("Введите  категорию кники:");
+        System.out.println("Введите  категорию книги:");
         String category = scanner.next();
         while (!containsSymbolsOnly(category)) {
             System.out.println("Wrong category");
@@ -218,6 +220,47 @@ public class ConsoleWorkerUtils {
             }
         }
         return new Book(authorForBook, title, pages, category);
+
+    }
+
+    ///////***        Добавление пользователя     ******//////////
+    public static User registerNewUser() {
+        int id = RandomDataGenerationUtils.getRandomNumber(1, 100000);
+        scanner = new Scanner(System.in);
+        System.out.println("Введите email:");
+        String email = scanner.next();
+        while (!containsLettersOnly(email)) {
+            System.out.println("Wrong email");
+            System.out.println("Try again or enter -1 to out");
+            email = scanner.next();
+            if (email.equals("-1")) {
+                ConsolController.getInstance().startApplication();
+            }
+        }
+        scanner = new Scanner(System.in);
+        System.out.println("Введите password:");
+        String password = scanner.next();
+        while (!containsLettersOnly(password)) {
+            System.out.println("Wrong password");
+            System.out.println("Try again or enter -1 to out");
+            password = scanner.next();
+            if (password.equals("-1")) {
+                ConsolController.getInstance().startApplication();
+            }
+        }
+        return new User(id, email, password);
+
+    }
+
+
+
+    public void listPrinter(List<?> list) {
+
+        for (int i = 0; i < list.size(); i++) {
+            StringBuilder sb = new StringBuilder(list.get(i).toString());
+            System.out.println(sb.insert(1, i+1+"."));
+        }
+
 
     }
 
