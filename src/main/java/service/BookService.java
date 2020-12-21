@@ -4,7 +4,7 @@ import exceptions.NoSuchBookException;
 import model.Author;
 import model.Book;
 import repository.BookRepository;
-import repository.BookRepositoryListImpl;
+import repository.BookRepositoryFileImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class BookService {
 
 
     private BookService() {
-        bookRepository = BookRepositoryListImpl.getInstance();
+        bookRepository = BookRepositoryFileImpl.getInstance();
     }
 
     public static BookService getInstance() {

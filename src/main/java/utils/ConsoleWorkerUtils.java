@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -250,4 +251,17 @@ public class ConsoleWorkerUtils {
         return new User(id, email, password);
 
     }
+
+
+
+    public void listPrinter(List<?> list) {
+
+        for (int i = 0; i < list.size(); i++) {
+            StringBuilder sb = new StringBuilder(list.get(i).toString());
+            System.out.println(sb.insert(1, i+1+"."));
+        }
+
+
+    }
+
 }

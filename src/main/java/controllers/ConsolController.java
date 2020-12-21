@@ -54,9 +54,9 @@ public class ConsolController {
             } else if (optionNumber == 2) {
                 logOut();
             } else if (optionNumber == 3) {
-                System.out.println(bookService.showAllBooks());
+                consoleWorkerUtils.listPrinter(bookService.showAllBooks());
             }else if(optionNumber == 4){
-                System.out.println(authorService.getAllAuthors());
+                consoleWorkerUtils.listPrinter(authorService.getAllAuthors());
             }else if(optionNumber == 5){
                 registerNewUser();
             }
@@ -65,7 +65,7 @@ public class ConsolController {
             }else if(optionNumber == 7){
                 registerNewBook();
             }else if(optionNumber == 8){
-                System.out.println(userService.getAllUsers());
+                consoleWorkerUtils.listPrinter(userService.getAllUsers());
             }
             else if (optionNumber == 10) {
                 turnOffApplication();
