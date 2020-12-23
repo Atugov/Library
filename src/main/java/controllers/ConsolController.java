@@ -39,39 +39,66 @@ public class ConsolController {
         while (true) {
             System.out.println(logedInUser == null ? "You are not authorized" : "Hello " + logedInLibUser.getName());
             System.out.println("Choose your option :");
-            System.out.println("1: Log in");
-            System.out.println("2: Log out");
-            System.out.println("3: Show all books");
-            System.out.println("4: Show all authors");
-            System.out.println("5: Register new user");
-            System.out.println("6: Register new author");
-            System.out.println("7: Register new book");
-            System.out.println("8: Show all users");
-            System.out.println("10: Turn off application");
+            if(logedInUser == null) {
+                System.out.println("1: Log in");
+                System.out.println("2: Show all books");
+                System.out.println("3: Show all authors");
+                System.out.println("4: Register new user");
+                System.out.println("10: Turn off application");
+            }
+            if(logedInUser != null){
+                System.out.println("1: Change your profile info");
+                System.out.println("2: Log out");
+                System.out.println("3: Show all books");
+                System.out.println("4: Show all authors");
+                System.out.println("5: Show all users");
+                System.out.println("6: Register new user");
+                System.out.println("7: Register new author");
+                System.out.println("8: Register new book");
+                System.out.println("10: Turn off application");
+            }
+
             int optionNumber = scanner.nextInt();
-            if (optionNumber == 1) {
-                logIn();
-            } else if (optionNumber == 2) {
-                logOut();
-            } else if (optionNumber == 3) {
-                consoleWorkerUtils.listPrinter(bookService.showAllBooks());
-            }else if(optionNumber == 4){
-                consoleWorkerUtils.listPrinter(authorService.getAllAuthors());
-            }else if(optionNumber == 5){
-                registerNewUser();
+            if (logedInUser!= null) {
+                if(optionNumber ==1){
+                    changeProfileInfo();
+                }else if (optionNumber == 2) {
+                    logOut();
+                } else if (optionNumber == 3) {
+                        consoleWorkerUtils.listPrinter(bookService.showAllBooks());
+                }else if (optionNumber == 4) {
+                    consoleWorkerUtils.listPrinter(authorService.getAllAuthors());
+                }else if (optionNumber == 5) {
+                    consoleWorkerUtils.listPrinter(userService.getAllUsers());
+                }else if (optionNumber == 6) {
+                    registerNewUser();
+                }else if (optionNumber == 7) {
+                    registerNewAuthor();
+                } else if (optionNumber == 8) {
+                    registerNewBook();
+                }else if (optionNumber == 10) {
+                    turnOffApplication();
+                } else {
+                    System.out.println("Wrong option");
+                }
             }
-            else if (optionNumber == 6) {
-                registerNewAuthor();
-            }else if(optionNumber == 7){
-                registerNewBook();
-            }else if(optionNumber == 8){
-                consoleWorkerUtils.listPrinter(userService.getAllUsers());
+
+            if(logedInUser == null) {
+                if (optionNumber == 1) {
+                    logIn();
+                } else if (optionNumber == 2) {
+                    consoleWorkerUtils.listPrinter(bookService.showAllBooks());
+                } else if (optionNumber == 3) {
+                    consoleWorkerUtils.listPrinter(authorService.getAllAuthors());
+                } else if (optionNumber == 4) {
+                    registerNewUser();
+                } else if (optionNumber == 10) {
+                    turnOffApplication();
+                }else {
+                    System.out.println("Wrong option");
+                }
             }
-            else if (optionNumber == 10) {
-                turnOffApplication();
-            } else {
-                System.out.println("Wrong option");
-            }
+
         }
     }
 
@@ -99,6 +126,10 @@ public class ConsolController {
     }
     private void registerNewUser(){
         userService.addNewUser(ConsoleWorkerUtils.registerNewUser());
+    }
+    private void changeProfileInfo(){
+        userService.changeDateInProfileInfo(ConsoleWorkerUtils.changeProfileInfo(logedInLibUser));
+        userService.changeNameInProfileInfo(ConsoleWorkerUtils.changeProfileInfo(logedInLibUser));
     }
 
 

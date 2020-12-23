@@ -11,4 +11,7 @@ public interface UserRepository {
     List<LibraryUser> getAllLibraryUsers();
 
     User addUser(User user);
+    LibraryUser addLibraryUser(LibraryUser libraryUser);
+    LibraryUser changeDateOfBirthInProfile(LibraryUser libraryUser);
+    LibraryUser changeNameInProfile(LibraryUser libraryUser);
 }

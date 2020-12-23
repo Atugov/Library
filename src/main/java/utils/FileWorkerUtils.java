@@ -10,4 +10,21 @@ public class FileWorkerUtils {
         fileWriter.flush();
         fileWriter.close();
     }
-}
+//    private void overwriteToFile (ActionEvent event) throws IOException {
+//        String searchWord = scrfield.getText();
+//        String changeWord = chngfield.getText();
+//
+//        StringBuilder sb = new StringBuilder();
+//        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+//            String strLine;
+//            while ((strLine = br.readLine()) != null) {
+//                sb.append(strLine.replace(searchWord, changeWord)).append("\r\n");
+//            }
+//        }
+//
+//        try (FileWriter fileWriter = new FileWriter(file)) {
+//            fileWriter.write(sb.toString());
+//        }
+
+    }
+

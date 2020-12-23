@@ -62,4 +62,19 @@ public class UserRepositiryListImpl implements UserRepository {
     public User addUser(User user) {
         return null;
     }
+
+    @Override
+    public LibraryUser addLibraryUser(LibraryUser libraryUser) {
+        return null;
+    }
+
+    @Override
+    public LibraryUser changeDateOfBirthInProfile(LibraryUser libraryUser) {
+        return null;
+    }
+
+    @Override
+    public LibraryUser changeNameInProfile(LibraryUser libraryUser) {
+        return null;
+    }
 }

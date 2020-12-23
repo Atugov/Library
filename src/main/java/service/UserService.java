@@ -45,7 +45,7 @@ public class UserService {
     }
 
     public LibraryUser getLibraryUserByUserId(int id) {
-        for (int i = 0; i < userRepository.getAllUsers().size(); i++) {
+        for (int i = 0; i < userRepository.getAllLibraryUsers().size(); i++) {
             if (id == userRepository.getAllLibraryUsers().get(i).getUserId()) {
                 return userRepository.getAllLibraryUsers().get(i);
             }
@@ -66,5 +66,14 @@ public class UserService {
     }
     public User addNewUser(User user){
         return userRepository.addUser(user);
+    }
+    public LibraryUser addNewLibraryUser(LibraryUser libraryUser){
+        return userRepository.addLibraryUser(libraryUser);
+    }
+    public LibraryUser changeDateInProfileInfo(LibraryUser libraryUser){
+        return userRepository.changeDateOfBirthInProfile(libraryUser);
+    }
+    public LibraryUser changeNameInProfileInfo(LibraryUser libraryUser){
+        return userRepository.changeNameInProfile(libraryUser);
     }
 }
