@@ -72,9 +72,6 @@ public class LibraryUser {
 
     @Override
     public String toString() {
-        return
-                "\n name is " + name +
-                        ", email is " + email +
-                        ", dateOfBirth is " + dateOfBirth;
+        return userId + "\t" + name + "\t" + email + "\t" + dateOfBirth +"\n";
     }
 }

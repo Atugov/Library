@@ -9,7 +9,8 @@ public class Constants {
     public final static String[] TITLES = {"Book1", "Book2", "Book3", "Book4", "Book5", "Book6", "Book7", "Book8", "Book9", "Book10"};
     public final static String[] CATEGORIES = {"Roman", "Povestj", "Fantasy", "Skazka", "Stih", "Poema", "Novella", "Saga", "Basnia", "Tragedy"};
     public final static String DATE_FORMAT = "dd-MM-yyyy";
-
+    public final static File FILE_USERS = new File("usersRepositoryFile.txt");
+    public final static File FILE_LIBRARY_USERS = new File("libraryUsersRepositoryFile.txt");
 
 
 }

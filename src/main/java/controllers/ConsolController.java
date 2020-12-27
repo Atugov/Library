@@ -17,7 +17,6 @@ public class ConsolController {
     private UserService userService;
     private static ConsolController consolController;
     private AuthorService authorService;
-    private ConsoleWorkerUtils consoleWorkerUtils;
 
     private ConsolController() {
         scanner = new Scanner(System.in);
@@ -25,7 +24,7 @@ public class ConsolController {
         bookService = BookService.getInstance();
         userService = UserService.getInstance();
         authorService = AuthorService.getInstance();
-        consoleWorkerUtils = new ConsoleWorkerUtils();
+        userService.synchronizationData();
     }
 
     public static ConsolController getInstance() {
@@ -35,7 +34,8 @@ public class ConsolController {
         return consolController;
     }
 
-    public void startApplication() {
+    public void startApplication(){
+
         while (true) {
             System.out.println(logedInUser == null ? "You are not authorized" : "Hello " + logedInLibUser.getName());
             System.out.println("Choose your option :");
@@ -65,11 +65,11 @@ public class ConsolController {
                 }else if (optionNumber == 2) {
                     logOut();
                 } else if (optionNumber == 3) {
-                        consoleWorkerUtils.listPrinter(bookService.showAllBooks());
+                        ConsoleWorkerUtils.listPrinter(bookService.showAllBooks());
                 }else if (optionNumber == 4) {
-                    consoleWorkerUtils.listPrinter(authorService.getAllAuthors());
+                    ConsoleWorkerUtils.listPrinter(authorService.getAllAuthors());
                 }else if (optionNumber == 5) {
-                    consoleWorkerUtils.listPrinter(userService.getAllUsers());
+                    ConsoleWorkerUtils.listPrinter(userService.getAllLibraryUsers());
                 }else if (optionNumber == 6) {
                     registerNewUser();
                 }else if (optionNumber == 7) {
@@ -87,9 +87,9 @@ public class ConsolController {
                 if (optionNumber == 1) {
                     logIn();
                 } else if (optionNumber == 2) {
-                    consoleWorkerUtils.listPrinter(bookService.showAllBooks());
+                    ConsoleWorkerUtils.listPrinter(bookService.showAllBooks());
                 } else if (optionNumber == 3) {
-                    consoleWorkerUtils.listPrinter(authorService.getAllAuthors());
+                    ConsoleWorkerUtils.listPrinter(authorService.getAllAuthors());
                 } else if (optionNumber == 4) {
                     registerNewUser();
                 } else if (optionNumber == 10) {
@@ -103,7 +103,7 @@ public class ConsolController {
     }
 
     private void logIn() {
-        logedInLibUser = consoleWorkerUtils.logginingIn();
+        logedInLibUser = ConsoleWorkerUtils.logginingIn();
         logedInUser =  userService.getUserByUserId(logedInLibUser == null ? -1 : logedInLibUser.getUserId());
 
     }
@@ -114,6 +114,7 @@ public class ConsolController {
     }
 
     private void turnOffApplication() {
+        userService.preExitOperations();
         System.exit(1);
     }
 
@@ -127,10 +128,26 @@ public class ConsolController {
     private void registerNewUser(){
         userService.addNewUser(ConsoleWorkerUtils.registerNewUser());
     }
-    private void changeProfileInfo(){
-        userService.changeDateInProfileInfo(ConsoleWorkerUtils.changeProfileInfo(logedInLibUser));
-        userService.changeNameInProfileInfo(ConsoleWorkerUtils.changeProfileInfo(logedInLibUser));
+    private void changeProfileInfo() {
+        System.out.println("1: Сменить имя");
+        System.out.println("2: Сменить дату рождения");
+        System.out.println("3: Сменить email");
+        System.out.println("4: Выйти в меню");
+        System.out.println("10: Turn off application");
+        int optionNumber = scanner.nextInt();
+            if (optionNumber == 1) {
+                userService.changeNameInProfileInfo(ConsoleWorkerUtils.changeNameInProfile(logedInLibUser));
+            } else if (optionNumber == 2) {
+                userService.changeDateInProfileInfo(ConsoleWorkerUtils.changeDateOfBirthInProfile(logedInLibUser));
+            } else if (optionNumber == 3) {
+                userService.changeEmailInProfileInfo(ConsoleWorkerUtils.changeEmailInProfile(logedInLibUser));
+            }else if (optionNumber == 4) {
+                startApplication();
+            } else if (optionNumber == 10) {
+                turnOffApplication();
+            } else {
+                System.out.println("Wrong option");
+            }
+        }
     }
 
-
-}

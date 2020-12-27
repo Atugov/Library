@@ -17,7 +17,6 @@ public class BookService {
     private BookService() {
         bookRepository = BookRepositoryFileImpl.getInstance();
     }
-
     public static BookService getInstance() {
         if (bookService == null) {
             bookService = new BookService();

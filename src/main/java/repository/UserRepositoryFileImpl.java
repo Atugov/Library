@@ -1,5 +1,6 @@
 package repository;
 
+import constants.Constants;
 import model.user.LibraryUser;
 import model.user.User;
 import utils.FileWorkerUtils;
@@ -12,11 +13,7 @@ import java.util.Scanner;
 
 public class UserRepositoryFileImpl implements UserRepository {
     private static UserRepositoryFileImpl userRepositoryFile;
-    private final static File FILE_USERS = new File("usersRepositoryFile.txt");
-    private final static File FILE_LIBRARY_USERS = new File("libraryUsersRepositoryFile.txt");
-
     private UserRepositoryFileImpl() {
-
     }
 
     public static UserRepositoryFileImpl getInstance() {
@@ -26,11 +23,13 @@ public class UserRepositoryFileImpl implements UserRepository {
         return userRepositoryFile;
     }
 
+
+
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try {
-            Scanner scanner = new Scanner(FILE_USERS);
+            Scanner scanner = new Scanner(Constants.FILE_USERS);
             while (scanner.hasNextLine()) {
                 String nl2 = scanner.nextLine();
                 String[] fields = nl2.split("[\t]");
@@ -48,7 +47,7 @@ public class UserRepositoryFileImpl implements UserRepository {
     public List<LibraryUser> getAllLibraryUsers() {
         List<LibraryUser> libraryUsers = new ArrayList<>();
         try {
-            Scanner scanner = new Scanner(FILE_LIBRARY_USERS);
+            Scanner scanner = new Scanner(Constants.FILE_LIBRARY_USERS);
             while (scanner.hasNextLine()) {
                 LibraryUser libraryUser;
                 String nl3 = scanner.nextLine();
@@ -73,7 +72,7 @@ public class UserRepositoryFileImpl implements UserRepository {
     @Override
     public User addUser(User user) {
         String userInfo = user.getUserId() + "\t" + user.getPassword() + "\t" + user.getLogin() + "\n";
-        String file = FILE_USERS.getPath();
+        String file = Constants.FILE_USERS.getPath();
         try {
             FileWorkerUtils.writeToFile(file, userInfo);
         } catch (IOException e) {
@@ -85,7 +84,7 @@ public class UserRepositoryFileImpl implements UserRepository {
     @Override
     public LibraryUser addLibraryUser(LibraryUser libraryUser) {
         String libraryUserInfo = libraryUser.getUserId() + "\t" + libraryUser.getName() + "\t" + libraryUser.getEmail() + "\t" + libraryUser.getDateOfBirth() + "\n";
-        String file = FILE_LIBRARY_USERS.getPath();
+        String file = Constants.FILE_LIBRARY_USERS.getPath();
         try {
             FileWorkerUtils.writeToFile(file, libraryUserInfo);
         } catch (IOException e) {
@@ -96,13 +95,13 @@ public class UserRepositoryFileImpl implements UserRepository {
 
     @Override
     public LibraryUser changeDateOfBirthInProfile(LibraryUser libraryUser) {
-        String file = FILE_LIBRARY_USERS.getPath();
+        String file = Constants.FILE_LIBRARY_USERS.getPath();
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
             String strLine;
             String id = Integer.toString(libraryUser.getUserId());
             String date = libraryUser.getDateOfBirth() + "";
-            while ((strLine = br.readLine()) != null &&strLine.contains(id)) {
+            while ((strLine = br.readLine()) != null && strLine.contains(id)) {
                 sb.append(strLine.replace("null", date)).append("\r\n");
                 //sb.append(strLine.replace("emptyName", libraryUser.getName())).append("\r\n");
             }
@@ -119,7 +118,7 @@ public class UserRepositoryFileImpl implements UserRepository {
 
     @Override
     public LibraryUser changeNameInProfile(LibraryUser libraryUser) {
-        String file = FILE_LIBRARY_USERS.getPath();
+        String file = Constants.FILE_LIBRARY_USERS.getPath();
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
             String strLine;
@@ -136,5 +135,10 @@ public class UserRepositoryFileImpl implements UserRepository {
             e.printStackTrace();
         }
         return libraryUser;
+    }
+
+    @Override
+    public LibraryUser changeEmailInProfile(LibraryUser libraryUser) {
+        return null;
     }
 }

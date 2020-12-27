@@ -1,6 +1,1 @@
-qwe	qwe	1999-12-12	qwe	12	qwe
-qaz	qaz	1992-12-12	qaz	123	qaz
-qwerfv	qwerfv	1977-02-28	qwerfv	12345	qwertgb
-qasdfgh	qasdfghj	1988-07-09	qazxcvbb	1212	qazxcvb
-er	ews	1999-12-01	qaz	12	qwqdqwd
-qasddfg	werefaf	2000-11-11	elhhlg	123	rfrebvt
+asd	asd	2000-01-01	awer	1223	qwedf

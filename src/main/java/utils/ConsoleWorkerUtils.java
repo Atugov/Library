@@ -6,6 +6,7 @@ import model.Author;
 import model.Book;
 import model.user.LibraryUser;
 import model.user.User;
+import repository.UserRepositoryListImpl;
 import service.UserService;
 
 import java.text.DateFormat;
@@ -20,7 +21,7 @@ import java.util.regex.Pattern;
 public class ConsoleWorkerUtils {
     private static Scanner scanner;
 
-    public LibraryUser logginingIn() {
+    public static LibraryUser logginingIn() {
         scanner = new Scanner(System.in);
         System.out.println("Введите логин:");
         String login = scanner.next();
@@ -75,7 +76,7 @@ public class ConsoleWorkerUtils {
         return LocalDate.of(year, month, day);
     }
 
-    public static boolean isDateValid(String date) {
+    private static boolean isDateValid(String date) {
         try {
             DateFormat df = new SimpleDateFormat(Constants.DATE_FORMAT);
             df.setLenient(false);
@@ -87,7 +88,7 @@ public class ConsoleWorkerUtils {
 
     }
 
-    public static String getSomeStringWithLetters(String string) {
+    private static String getSomeStringWithLetters(String string) {
         scanner = new Scanner(System.in);
         string = scanner.next();
         while (!containsLettersOnly(string)) {
@@ -101,7 +102,7 @@ public class ConsoleWorkerUtils {
         return string;
     }
 
-    public static String getSomeStringWithSymbols(String string) {
+    private static String getSomeStringWithSymbols(String string) {
         scanner = new Scanner(System.in);
         string = scanner.next();
         while (!containsSymbolsOnly(string)) {
@@ -115,7 +116,7 @@ public class ConsoleWorkerUtils {
         return string;
     }
 
-    public static int enterYear() {
+    private static int enterYear() {
         String strYear;
         int year;
         while (true) {
@@ -142,7 +143,7 @@ public class ConsoleWorkerUtils {
         return year;
     }
 
-    public static int enterMonth() {
+    private static int enterMonth() {
         int month;
         String strMonth;
         while (true) {
@@ -169,7 +170,7 @@ public class ConsoleWorkerUtils {
         return month;
     }
 
-    public static int enterDay() {
+    private static int enterDay() {
         int day;
         String strDay;
         while (true) {
@@ -217,36 +218,61 @@ public class ConsoleWorkerUtils {
 
     ///////***        Добавление пользователя     ******//////////
     public static User registerNewUser() {
-        int id = RandomDataGenerationUtils.getRandomNumber(1, 100000);
-        System.out.println("Введите email:");
-        String email = getSomeStringWithLetters("email:");
+        int id = 1;
+        for (User a : UserRepositoryListImpl.getInstance().getAllUsers()) {
+            while (a.getUserId() == id) {
+                id += 1;
+            }
+        }
+        System.out.println("Введите login:");
+        String login = getSomeStringWithLetters("login:");
+        for (User a : UserRepositoryListImpl.getInstance().getAllUsers()) {
+            while (a.getLogin().equals(login)) {
+                System.out.println("Такой логин уже существует, введите другой");
+                login = getSomeStringWithLetters("login:");
+            }
+        }
         System.out.println("Введите пароль:");
         String password = getSomeStringWithLetters("password:");
         String name = "emptyName";
+        String email = "emptyEmail";
         UserService.getInstance().addNewLibraryUser(new LibraryUser(id, name, email, null));
 
-        return new User(id, email, password);
+        return new User(id, login, password);
 
     }
 
-    public static LibraryUser changeProfileInfo(LibraryUser libraryUser) {
-        System.out.println("ВВедите имя");
-        String name = getSomeStringWithLetters("name:");
-        libraryUser.setName(name);
+    public static LibraryUser changeDateOfBirthInProfile(LibraryUser libraryUser) {
         System.out.println("Введите вашу дату рождения:");
         libraryUser.setDateOfBirth(getSomeDate());
         return libraryUser;
-
     }
 
-    public void listPrinter(List<?> list) {
+    public static LibraryUser changeNameInProfile(LibraryUser libraryUser) {
+        System.out.println("Введите ваше имя:");
+        libraryUser.setName(getSomeStringWithLetters("name:"));
+        return libraryUser;
+    }
 
+    public static LibraryUser changeEmailInProfile(LibraryUser libraryUser) {
+        System.out.println("Введите ваш email:");
+        libraryUser.setEmail(getSomeStringWithSymbols("email:"));
+        return libraryUser;
+    }
+
+    public static void listPrinter(List<?> list) {
         for (int i = 0; i < list.size(); i++) {
             StringBuilder sb = new StringBuilder(list.get(i).toString());
-            System.out.println(sb.insert(1, i + 1 + "."));
+            if (isNumeric(list.get(i).toString().substring(0, 1)))
+                System.out.println(sb.insert(1, "."));
+            else {
+                System.out.println(sb.insert(1, i + 1 + "."));
+            }
         }
+    }
 
-
+    public static boolean isNumeric(String str) {
+        return str.matches("\\d");  //match a number with optional '-' and decimal.
     }
 
 }
