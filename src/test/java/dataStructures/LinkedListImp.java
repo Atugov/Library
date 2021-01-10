@@ -30,19 +30,37 @@ public class LinkedListImp implements List {
     public String get(int index) {
         Node currentNode = head;
         for (int i = 0; i < index; i++) {
+            if(currentNode.next == null){
+                throw new IllegalStateException("There are no elements by " + index +" index");
+            }
             currentNode = currentNode.next;
+
         }
         return currentNode.value;
     }
 
     @Override
     public void remove(int index) {
-
+        Node currentNode = head;
+        for (int i = 0; i < index; i++) {
+            if(currentNode.next == null){
+                throw new IllegalStateException("There are no elements by " + index +" index");
+            }
+            currentNode = currentNode.next;
+        }
+        currentNode.prev.next = currentNode.next;
+        currentNode.next.prev = currentNode.prev;
+        size--;
     }
 
     @Override
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 
 

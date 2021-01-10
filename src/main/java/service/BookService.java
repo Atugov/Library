@@ -82,7 +82,8 @@ public class BookService {
         return bookRepository.getAllBooks();
 
     }
-    public Book addBook(Book book){
-        return bookRepository.addBook(book);
+    public void addBook(Book book) {
+            bookRepository.addBook(book);
+
     }
 }

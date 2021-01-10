@@ -10,5 +10,5 @@ public interface BookRepository {
 
     List<Book> getAllBooks();
 
-    Book addBook(Book book);
+    void addBook(Book book);
 }

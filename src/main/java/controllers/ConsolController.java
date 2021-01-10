@@ -34,7 +34,7 @@ public class ConsolController {
         return consolController;
     }
 
-    public void startApplication(){
+    public void startApplication() {
 
         while (true) {
             System.out.println(logedInUser == null ? "You are not authorized" : "Hello " + logedInLibUser.getName());
@@ -122,7 +122,7 @@ public class ConsolController {
         authorService.addAuthor(ConsoleWorkerUtils.registerNewAuthor());
 
     }
-    private void registerNewBook(){
+    private void registerNewBook() {
         bookService.addBook(ConsoleWorkerUtils.registerNewBook());
     }
     private void registerNewUser(){

@@ -91,14 +91,12 @@ public class UserRepositoryListImpl implements UserRepository {
     @Override
     public User addUser(User user) {
         users.add(user);
-        System.out.println(users);
         return user;
     }
 
     @Override
     public LibraryUser addLibraryUser(LibraryUser libraryUser) {
         libraryUsers.add(libraryUser);
-        System.out.println(libraryUsers);
         return libraryUser;
 
     }

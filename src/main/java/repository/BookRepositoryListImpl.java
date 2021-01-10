@@ -44,9 +44,8 @@ public class BookRepositoryListImpl implements BookRepository {
     }
 
     @Override
-    public Book addBook(Book book) {
+    public void addBook(Book book) {
         books.add(book);
-        return book;
     }
 }
 

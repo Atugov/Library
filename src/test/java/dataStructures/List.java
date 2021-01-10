@@ -5,4 +5,5 @@ public interface List {
     String get(int index);
     void remove(int index);
     boolean isEmpty();
+    int size();
 }

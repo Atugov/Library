@@ -103,7 +103,6 @@ public class UserRepositoryFileImpl implements UserRepository {
             String date = libraryUser.getDateOfBirth() + "";
             while ((strLine = br.readLine()) != null && strLine.contains(id)) {
                 sb.append(strLine.replace("null", date)).append("\r\n");
-                //sb.append(strLine.replace("emptyName", libraryUser.getName())).append("\r\n");
             }
         } catch (Exception e) {
             e.printStackTrace();
